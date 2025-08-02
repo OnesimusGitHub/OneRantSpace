@@ -8,9 +8,9 @@ router.get('/', getAllRants)
 
 router.post('/', createRant)
 
-router.delete('/', deleteRant)
+router.delete('/:rant_id', deleteRant)
 
-router.put('/', updateRant)
+router.put('/:rant_id', updateRant)
 
 
 
