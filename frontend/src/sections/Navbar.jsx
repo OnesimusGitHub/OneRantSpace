@@ -4,7 +4,6 @@ import {motion} from 'motion/react'
 
 function Navigation() {
     return (
-
         <ul>
             <li>
                 <a  className="nav-link" href="">Onesimus Time</a>
@@ -23,7 +22,7 @@ const Navbar = () => {
                 </a>
 
                 <button onClick={() => setIsOpen(!isOpen)} className='flex cursor-pointer text-neutral-400 hover:text-white focus:outline-none sm:hidden'>
-                    <img src={isOpen ? '/assets/img/image.png' : '/assets/img/menu.png'} alt="toggle" className='w-6 h-6' />
+                    <img src={isOpen ? '/assets/img/close1.png' : '/assets/img/menu.png'} alt="toggle" className='w-6 h-6' />
                 </button>
                 <nav className='hidden sm:flex'>
                     <Navigation />
