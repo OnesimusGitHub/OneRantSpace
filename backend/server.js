@@ -3,7 +3,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import cors from 'cors';
 import dotenv from 'dotenv';
-
+// import {aj} from './lib/arcjet.js';  
 import rantRoutes from './routes/rantRoutes.js';
 import {sql} from './config/db.js';
 
@@ -16,6 +16,8 @@ app.use(helmet());
 app.use(cors())
 app.use(morgan("dev"));
 
+
+/*
 app.use(async(req, res, next) => {
 try {
     const decision = await aj.protect(req, {
@@ -42,6 +44,7 @@ try {
             next(error);
         }
 });
+*/
 
 app.use('/api/rants', rantRoutes);
 
@@ -69,10 +72,6 @@ initDB().then(()=> {
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
     });
-})
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
 })
 
 

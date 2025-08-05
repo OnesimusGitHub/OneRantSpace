@@ -2,14 +2,11 @@ import {sql} from '../config/db.js';
 
 export const getAllRants = async(req, res) => {
     try {
-        const ranst = await sql`SELECT * FROM rants ORDER BY created_at DESC`;
+        const rants = await sql`SELECT * FROM rants ORDER BY created_at DESC`;
         res.status(200).json({success: true, data: rants});
     } catch (error) {
-        res.status(500).json({success: false, message: "Error creating rant"});
+        res.status(500).json({success: false, message: "Error fetching rants"});
     }
-
-
-
 }
 export const createRant = async(req, res) => {
     const {header, content, youtube_url} = req.body

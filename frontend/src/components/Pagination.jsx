@@ -3,7 +3,7 @@ import RantCard from '../components/RantCard';
 import {motion, AnimatePresence} from 'motion/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-function Pagination({rants}) {
+function Pagination({rants, onHoverVideo}) {
     const [currentPage, setCurrentPage] = useState(0);
     const [direction, setDirection] = useState(0); 
 
@@ -54,7 +54,8 @@ function Pagination({rants}) {
                         }}
                         className='absolute w-full'
                     >
-                        <RantCard rants={rants[currentPage]} />
+                        <RantCard rants={rants[currentPage]}
+                        onHoverVideo={onHoverVideo} />
                     </motion.div>
                 </AnimatePresence>
             </div>
@@ -76,7 +77,7 @@ function Pagination({rants}) {
                 <ChevronRight className='w-6 h-6 text-white' />
             </button>
 
-            {/* Page indicator */}
+            
             <div className='absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2'>
                 {rants.map((_, index) => (
                     <button
