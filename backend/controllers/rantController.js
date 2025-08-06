@@ -1,5 +1,6 @@
 import {sql} from '../config/db.js';
 
+
 export const getAllRants = async(req, res) => {
     try {
         const rants = await sql`SELECT * FROM rants ORDER BY created_at DESC`;
@@ -8,6 +9,7 @@ export const getAllRants = async(req, res) => {
         res.status(500).json({success: false, message: "Error fetching rants"});
     }
 }
+
 export const createRant = async(req, res) => {
     const {header, content, youtube_url} = req.body
 
@@ -47,8 +49,6 @@ export const updateRant = async(req, res) => {
 
 }
 
-
-
 export const deleteRant = async(req, res) => {
     const {rant_id} = req.params;
 
@@ -66,3 +66,6 @@ export const deleteRant = async(req, res) => {
 
 
 }
+
+
+

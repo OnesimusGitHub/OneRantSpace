@@ -2,12 +2,12 @@ import React from 'react'
 
 function RantCard({ rants, onHoverVideo }) {
   const handleMouseEnter = () => {
-    console.log("Hovering video:", rants?.youtube_url);
+
     onHoverVideo?.(rants?.youtube_url);
   };
 
   const handleMouseLeave = () => {
-    console.log("Leaving video hover");
+   
     onHoverVideo?.(null);
   };
   

@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 // import {aj} from './lib/arcjet.js';  
 import rantRoutes from './routes/rantRoutes.js';
 import {sql} from './config/db.js';
+import authRoutes from './routes/authRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -47,7 +48,7 @@ try {
 */
 
 app.use('/api/rants', rantRoutes);
-
+app.use('/api/auth', authRoutes);
 
 async function initDB() {
     try {
@@ -59,8 +60,15 @@ async function initDB() {
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             youtube_url text not null)
             `;
-
+        await sql`
+            CREATE TABLE IF NOT EXISTS users (
+            user_id SERIAL PRIMARY KEY,
+            username varchar(50) NOT NULL UNIQUE,
+            password_hash varchar(255) NOT NULL)
+            `;
             
+    
+
             console.log("Database initialized successfully");
     } catch (error) {
         console.log("error initdb", error);
