@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllRants, createRant, deleteRant, updateRant, jwtAuth, validInfo } from '../controllers/rantController.js';
+import { getAllRants, createRant, deleteRant, updateRant } from '../controllers/rantController.js';
 
 const router = express.Router();
 
