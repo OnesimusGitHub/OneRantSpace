@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import {sql} from '../config/db.js';
 
+
 export const login = async (req, res) => {
     const {email, password} = req.body;
 
@@ -22,7 +23,7 @@ export const login = async (req, res) => {
        
         const token = jwt.sign(
             { user: { id: user[0].user_id } }, 
-            process.env.jwtSecret, 
+            process.env.JWT_SECRET, 
             { expiresIn: "1h" }
         );
         
@@ -68,3 +69,35 @@ export const register = async (req, res) => {
         res.status(500).json({success: false, message: "Error creating user"});
     }
 }
+
+export const verify = async (req, res) => {
+    try {
+        res.json(true);
+    } catch (error) {
+        console.error('Verification error:', error.message);
+        res.status(500).send("Server error");
+    }
+}
+
+export const getDashboard = async (req, res) => {
+    try {
+        
+        const user = await sql`
+            SELECT username, email 
+            FROM users 
+            WHERE user_id = ${req.user.id}
+        `;
+        
+        if (user.length === 0) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        
+        res.json({
+            success: true,
+            user: user[0]
+        });
+    } catch (error) {
+        console.error('Dashboard error:', error.message);
+        res.status(500).send("Server error");
+    }
+};
