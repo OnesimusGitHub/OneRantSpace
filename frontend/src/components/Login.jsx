@@ -55,7 +55,9 @@ const Login = ({ setAuth }) => {
 
   return (
     <Fragment>
-      <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
+      <section className="relative flex items-center c-space top-52"> 
+      <div className="flex flex-col items-center justify-center max-w-md p-5 mx-auto
+        border border-white/10 rounded-2xl bg-primary">
         <h1 className="text-2xl font-bold text-center mb-6">Login</h1>
         <form onSubmit={onSubmitForm}>
           <input
@@ -87,6 +89,7 @@ const Login = ({ setAuth }) => {
           Don't have an account? <Link to="/register" className="text-blue-500 hover:underline">Register</Link>
         </p>
       </div>
+      </section>
       <ToastContainer />
     </Fragment>
   );

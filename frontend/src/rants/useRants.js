@@ -9,6 +9,15 @@ export const useRants = create((set,get) => ({
     error: null,
 
 
+    formData: {
+        header: '',
+        content: '',
+        youtube_url: '',
+    },
+
+    setFormData: (formData) => set({formData}),
+    resetFormData: () => set({formData: {header: '', content: '', youtube_url: ''}}),
+
 
     fetchRants: async () => {
         set({ loading: true});
@@ -21,5 +30,60 @@ export const useRants = create((set,get) => ({
         } finally {
             set({ loading: false })
         }
+    },
+
+    addRant: async (e) => {
+        e.preventDefault();
+        set({loading: true});
+
+        try {
+            const formData = get().formData;
+            const response = await axios.post(`${BASE_URL}/api/rants`, formData);
+            await get().fetchRants();
+            get().resetFormData();
+            toast.success("Rant added successfully");
+            document.getElementById('add_rant_form').close();
+        } catch (error) {
+            toast.error('failed to add rant')
+            
+        } finally {
+            set({loading:false})
+        }
+    },
+
+
+    deleteRant: async (rant_id) => {
+        set({loading: true});
+
+        try {
+            await axios.delete(`${BASE_URL}/api/rants/${rant_id}`);
+            set(prev => ({rants: prev.rants.filter(rants => rants.rant_id !== rant_id)}))
+            toast.success("Rant deleted successfully");
+        } catch (error) {
+            toast.error("Failed to delete rant");
+        } finally {
+            set({loading: false})
+        }
+    },
+
+
+    editRant: async (rant_id) => {
+        set({loading: true});
+
+        try {
+            const formData = get().formData;
+            await axios.put(`${BASE_URL}/api/rants/${rant_id}`, formData);
+            await get().fetchRants();
+            get().resetFormData();
+            toast.success("Rant updated successfully");
+            document.getElementById('edit_rant_form').close();
+        } catch (error) {
+            toast.error("Failed to update rant");
+        } finally {
+            set({loading: false})
+        }
     }
+
+
+    
 }))

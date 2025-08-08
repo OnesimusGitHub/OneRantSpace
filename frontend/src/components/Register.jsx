@@ -19,6 +19,7 @@ const Register = ({ setAuth }) => {
 
   const onSubmitForm = async e => {
     e.preventDefault();
+    
     try {
       const body = { email, password, username };
       const response = await fetch(
@@ -31,6 +32,7 @@ const Register = ({ setAuth }) => {
           body: JSON.stringify(body)
         }
       );
+      
       const parseRes = await response.json();
 
       if (parseRes.token) {
@@ -40,11 +42,10 @@ const Register = ({ setAuth }) => {
         toast.success("Registered Successfully");
       } else {
         setAuth(false);
-        toast.error(parseRes.message || "Registration failed");
+        toast.error(parseRes.message || parseRes || "Registration failed");
       }
     } catch (err) {
-      console.error(err.message);
-      toast.error("Registration failed");
+      toast.error("Network error: " + err.message);
     }
   };
 
@@ -54,7 +55,9 @@ const Register = ({ setAuth }) => {
 
   return (
     <Fragment>
-      <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
+      <section className="relative flex items-center c-space top-52">
+      <div className="flex flex-col items-center justify-center max-w-md p-5 mx-auto
+        border border-white/10 rounded-2xl bg-primary">
         <h1 className="text-2xl font-bold text-center mb-6">Register</h1>
         <form onSubmit={onSubmitForm}>
           <input
@@ -96,6 +99,7 @@ const Register = ({ setAuth }) => {
         </p>
       </div>
       <ToastContainer />
+      </section>
     </Fragment>
   );
 };

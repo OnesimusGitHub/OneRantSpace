@@ -1,22 +1,22 @@
 const validInfo = function(req, res, next) {
-  const { email, username, password_hash } = req.body;
+  const { email, username, password } = req.body; // Changed from password_hash to password
 
   function validEmail(userEmail) {
     return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail);
   }
 
   if (req.path === "/register") {
-    console.log(!email.length);
-    if (![email, username, password_hash].every(Boolean)) {
-      return res.json("Missing Credentials");
+    console.log("Validation - email:", email, "username:", username, "password:", password); 
+    if (![email, username, password].every(Boolean)) {
+      return res.status(400).json({message: "Missing Credentials"});
     } else if (!validEmail(email)) {
-      return res.json("Invalid Email");
+      return res.status(400).json({message: "Invalid Email"});
     }
   } else if (req.path === "/login") {
-    if (![email, password_hash].every(Boolean)) {
-      return res.json("Missing Credentials");
+    if (![email, password].every(Boolean)) { 
+      return res.status(400).json({message: "Missing Credentials"});
     } else if (!validEmail(email)) {
-      return res.json("Invalid Email");
+      return res.status(400).json({message: "Invalid Email"});
     }
   }
 

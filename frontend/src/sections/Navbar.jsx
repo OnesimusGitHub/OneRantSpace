@@ -6,7 +6,7 @@ function Navigation() {
     return (
         <ul>
             <li>
-                <a  className="nav-link" href="">Onesimus Time</a>
+                <a  className="nav-link" href="/login">Onesimus Time</a>
             </li>
         </ul>
     )

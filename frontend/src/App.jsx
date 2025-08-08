@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from './sections/Navbar.jsx'
-import { Routes, Route, BrowserRouter } from 'react-router-dom'
+import { Routes, Route} from 'react-router-dom'
 import RantSection from './sections/RantSection.jsx'
 import Dashboard from './components/Dashboard.jsx'
 import Login from "./components/Login.jsx"
@@ -19,7 +19,7 @@ const App = () => {
 
   return (
     <div className='container mx-auto max-w-7xl'>
-      <BrowserRouter>
+    
         <Navbar isAuthenticated={isAuthenticated} setAuth={setIsAuthenticated} />
         
         <Routes>
@@ -37,7 +37,7 @@ const App = () => {
             element={<Register setAuth={setIsAuthenticated} />} 
           />
         </Routes>
-      </BrowserRouter>
+   
     </div>
   )
 }
