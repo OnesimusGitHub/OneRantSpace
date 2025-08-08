@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import AdminRantSection from '../sections/AdminRantSection';
 
 const Dashboard = ({ setAuth }) => {
   const navigate = useNavigate();
@@ -96,8 +97,10 @@ const Dashboard = ({ setAuth }) => {
             Logout
           </button>
         </div>
+
+
       </div>
-      
+    
       
       {/* Logout Confirmation Modal */}
       {showLogoutModal && (
@@ -122,6 +125,14 @@ const Dashboard = ({ setAuth }) => {
           </div>
         </div>
       )}
+
+      <AdminRantSection />
+
+
+
+
+
+
 
       <ToastContainer />
     </div>

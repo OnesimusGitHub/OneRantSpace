@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllRants, createRant, deleteRant, updateRant } from '../controllers/rantController.js';
+import { getAllRants, createRant, deleteRant, updateRant, getRantById } from '../controllers/rantController.js';
 
 const router = express.Router();
 
@@ -12,6 +12,7 @@ router.delete('/:rant_id', deleteRant)
 
 router.put('/:rant_id', updateRant)
 
+router.get('/:rant_id', getRantById);
 
 
 export default router;

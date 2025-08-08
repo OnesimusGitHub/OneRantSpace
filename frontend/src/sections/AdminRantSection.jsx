@@ -1,9 +1,10 @@
 import {useRants} from '../rants/useRants';
 import { useState, useEffect } from 'react';
 import { RefreshCwIcon } from 'lucide-react';
-import RantPagination from '../components/Pagination';
+import AdminPagination from '../components/AdminPagination';
 import ReactPlayer from 'react-player';
-
+import AddRantForm from '../components/AddRantForm';
+import { PlusCircleIcon } from 'lucide-react';
 function AdminRantSection() {
     const {rants, loading, error, fetchRants} = useRants();
     const [hoveredVideo, setHoveredVideo] = useState(null);
@@ -169,7 +170,10 @@ function AdminRantSection() {
             <div className='max-w-7xl mx-auto relative z-10'>
               
                 <div className='flex justify-between items-center mb-12'>
-                    <h1 className='text-3xl md:text-4xl font-bold text-white'>Latest Rants</h1>
+                    <button className=' flex items-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-full p-3 transition-colors duration-200' onClick={() => document.getElementById('add_rant_modal').showModal()}>
+                        <PlusCircleIcon className='size-5 mr-2' />
+                        Add Rant
+                    </button>
                     <button 
                         className='bg-white/10 hover:bg-white/20 border border-white/20 rounded-full p-3 transition-colors duration-200' 
                         onClick={fetchRants}
@@ -178,6 +182,7 @@ function AdminRantSection() {
                     </button>
                 </div>
 
+                <AddRantForm />
    
                 {error && (
                     <div className='bg-red-500/20 border border-red-500/50 text-red-200 p-4 rounded-lg mb-8'>
@@ -192,7 +197,7 @@ function AdminRantSection() {
                     </div>
                 ) : (
                     
-                    <RantPagination rants={rants} onHoverVideo={setHoveredVideo}/>
+                    <AdminPagination rants={rants} onHoverVideo={setHoveredVideo}/>
                 )}
             </div>
         </section>

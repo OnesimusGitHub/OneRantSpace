@@ -67,5 +67,23 @@ export const deleteRant = async(req, res) => {
 
 }
 
+export const getRantById = async(req, res) => {
+    const {rant_id} = req.params;
+
+    try {
+        const rant = await sql`
+            SELECT * FROM rants 
+            WHERE rant_id = ${rant_id}`;
+
+        if (rant.length === 0) {
+            return res.status(404).json({success: false, message: "Rant not found"});
+        }
+
+        res.status(200).json({success: true, data: rant[0]});
+
+    } catch (error) {
+        res.status(500).json({success: false, message: "Error fetching rant"});
+    }
+}
 
 

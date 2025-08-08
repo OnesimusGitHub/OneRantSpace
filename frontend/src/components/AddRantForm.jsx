@@ -1,24 +1,24 @@
-import { useportfolioProfile } from "../portfolio/useportfolioProfile";
+import { useRants } from '../rants/useRants';
 import { Package2Icon, PlusCircleIcon } from 'lucide-react';
 
-function AddPortfolioForm() {
-  const { addPortfolio, formData, setFormData, loading } = useportfolioProfile();
+function AddRantForm() {
+const {loading, addRant, formData, setFormData} = useRants();
 
   return (
-    <dialog id="add_portfolio_modal" className="modal">
+    <dialog id="add_rant_modal" className="modal">
       <div className="modal-box">
         {/* CLOSE BUTTON */}
-        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => document.getElementById('add_portfolio_modal').close()}>X</button>
+        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => document.getElementById('add_rant_modal').close()}>X</button>
 
         {/* MODAL HEADER */}
-        <h3 className="font-bold text-xl mb-8">Add New Portfolio</h3>
+        <h3 className="font-bold text-xl mb-8">Add New Rant</h3>
 
-        <form onSubmit={(e) => { e.preventDefault(); addPortfolio(e); }} className="space-y-6">
+        <form onSubmit={(e) => { e.preventDefault(); addRant(e); }} className="space-y-6">
           <div className="grid gap-6">
-            {/* PORTFOLIO NAME */}
+            {/* rant name */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text text-base font-medium">Portfolio User Name</span>
+                <span className="label-text text-base font-medium">Rant header</span>
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-base-content/50">
@@ -26,19 +26,19 @@ function AddPortfolioForm() {
                 </div>
                 <input
                   type="text"
-                  placeholder="Enter User Portfolio Name"
+                  placeholder="Enter rant header"
                   maxLength="100"
                   className="input input-bordered w-full pl-10 py-3 focus:input-primary transition-colors duration-200"
-                  value={formData?.portname || ''}
-                  onChange={(e) => setFormData({ ...formData, portname: e.target.value })}
+                  value={formData?.header || ''}
+                  onChange={(e) => setFormData({ ...formData, header: e.target.value })}
                 />
               </div>
             </div>
 
-            {/* PORTFOLIO BIO */}
+            {/* rant content */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text text-base font-medium">Portfolio Bio</span>
+                <span className="label-text text-base font-medium">Rant context</span>
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-base-content/50">
@@ -48,60 +48,16 @@ function AddPortfolioForm() {
                   type="text"
                   placeholder="Enter Portfolio Bio"
                   className="input input-bordered w-full pl-10 py-3 focus:input-primary transition-colors duration-200"
-                  value={formData?.portbio || ''}
-                  onChange={(e) => setFormData({ ...formData, portbio: e.target.value })}
+                  value={formData?.content || ''}
+                  onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                 />
               </div>
             </div>
 
-            {/* PORTFOLIO EMAIL */}
+            {/* rant youtube_url */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text text-base font-medium">Portfolio Email</span>
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-base-content/50">
-                  <Package2Icon className="size-5" />
-                </div>
-                <input
-                  type="email"
-                  placeholder="Enter Portfolio Email"
-                  maxLength="100"
-                  className="input input-bordered w-full pl-10 py-3 focus:input-primary transition-colors duration-200"
-                  value={formData?.portemail || ''}
-                  onChange={(e) => setFormData({ ...formData, portemail: e.target.value })}
-                />
-              </div>
-            </div>
-
-            {/* PORTFOLIO PHONE */}
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text text-base font-medium">Portfolio Phone</span>
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-base-content/50">
-                  <Package2Icon className="size-5" />
-                </div>
-                <input
-                  type="tel"
-                  placeholder="Enter Phone Number"
-                  maxLength="11"
-                  className="input input-bordered w-full pl-10 py-3 focus:input-primary transition-colors duration-200"
-                  value={formData?.portphone || ''}
-                  onChange={(e) => {
-                    const value = e.target.value.replace(/\D/g, '');
-                    setFormData({ ...formData, portphone: value });
-                  }}
-                  inputMode="numeric"
-                />
-              </div>
-            </div>
-
-            {/* PORTFOLIO IMAGE */}
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text text-base font-medium">Portfolio Profile Picture</span>
+                <span className="label-text text-base font-medium">Rant video</span>
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-base-content/50">
@@ -109,13 +65,16 @@ function AddPortfolioForm() {
                 </div>
                 <input
                   type="text"
-                  placeholder="Enter Image URL"
+                  placeholder="Enter rant video"
                   className="input input-bordered w-full pl-10 py-3 focus:input-primary transition-colors duration-200"
-                  value={formData?.portimage || ''}
-                  onChange={(e) => setFormData({ ...formData, portimage: e.target.value })}
+                  value={formData?.youtube_url || ''}
+                  onChange={(e) => setFormData({ ...formData, youtube_url: e.target.value })}
                 />
               </div>
             </div>
+
+           
+
           </div>
 
           {/* MODAL ACTIONS */}
@@ -123,21 +82,21 @@ function AddPortfolioForm() {
             <button 
               type="button"
               className="btn btn-ghost"
-              onClick={() => document.getElementById('add_portfolio_modal').close()}
+              onClick={() => document.getElementById('add_rant_modal').close()}
             >
               Cancel
             </button>
             <button
               type="submit"
               className="btn btn-primary min-w-[120px]"
-              disabled={!formData?.portname || !formData?.portbio || !formData?.portemail || !formData?.portphone || !formData?.portimage || loading}
+              disabled={!formData?.header || !formData?.content || !formData?.youtube_url || loading}
             >
               {loading ? (
                 <span className="loading loading-spinner loading-sm" />
               ) : (
                 <>
                   <PlusCircleIcon className="size-5 mr-2" />
-                  Add Portfolio
+                  Add Rant
                 </>
               )}
             </button>
@@ -146,11 +105,11 @@ function AddPortfolioForm() {
       </div>
 
       {/* BACKDROP */}
-      <div className="modal-backdrop" onClick={() => document.getElementById('add_portfolio_modal').close()}>
+      <div className="modal-backdrop" onClick={() => document.getElementById('add_rant_modal').close()}>
         <button>close</button>
       </div>
     </dialog>
   );
 }
 
-export default AddPortfolioForm;
+export default AddRantForm;

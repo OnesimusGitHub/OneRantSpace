@@ -4,6 +4,7 @@ import { RefreshCwIcon } from 'lucide-react';
 import RantPagination from '../components/Pagination';
 import ReactPlayer from 'react-player';
 
+
 function RantSection() {
     const {rants, loading, error, fetchRants} = useRants();
     const [hoveredVideo, setHoveredVideo] = useState(null);
@@ -170,6 +171,8 @@ function RantSection() {
               
                 <div className='flex justify-between items-center mb-12'>
                     <h1 className='text-3xl md:text-4xl font-bold text-white'>Latest Rants</h1>
+                    
+                    
                     <button 
                         className='bg-white/10 hover:bg-white/20 border border-white/20 rounded-full p-3 transition-colors duration-200' 
                         onClick={fetchRants}
@@ -178,6 +181,7 @@ function RantSection() {
                     </button>
                 </div>
 
+                
    
                 {error && (
                     <div className='bg-red-500/20 border border-red-500/50 text-red-200 p-4 rounded-lg mb-8'>
