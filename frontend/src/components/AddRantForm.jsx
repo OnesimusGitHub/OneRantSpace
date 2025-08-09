@@ -78,24 +78,24 @@ const {loading, addRant, formData, setFormData} = useRants();
           <div className="flex justify-between items-center mb-12">
             <button 
               type="button"
-              className="flex items-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-full p-3 transition-colors duration-200 text-neutral-400"
+              className="label-text text-base font-medium  text-neutral-400 flex justify-center items-center cursor-pointer"
               onClick={() => document.getElementById('add_rant_modal').close()}
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="flex items-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-full p-3 transition-colors duration-200"
+              className="label-text text-base font-medium  text-neutral-400 flex justify-center items-center cursor-pointer"
               disabled={!formData?.header || !formData?.content || !formData?.youtube_url || loading}
             >
               {loading ? (
                 <span className="loading loading-spinner loading-sm" />
               ) : (
                 <>
-                  <button className='label-text text-base font-medium  text-neutral-400 flex justify-center items-center'>
+               
                   <PlusCircleIcon className="size-5 mr-2" />
                    Add Rant
-                </button>
+               
                 </>
               )}  
             </button>

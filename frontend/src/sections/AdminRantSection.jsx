@@ -173,7 +173,7 @@ function AdminRantSection() {
                     <button 
                         className=' flex items-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-full p-3 transition-colors duration-200' 
                         onClick={() => {
-                            resetFormData(); // Clear any existing form data
+                            resetFormData(); 
                             document.getElementById('add_rant_modal').showModal();
                         }}
                     >

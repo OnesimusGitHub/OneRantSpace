@@ -1,12 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import {useRants} from '../rants/useRants';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ArrowLeftIcon, SaveIcon, Trash2Icon } from "lucide-react";
 
 function UpdateRant({ rant }) {
   const {
-    formData,
-    setFormData,
     loading,
     error,
     editRant,
@@ -14,24 +12,50 @@ function UpdateRant({ rant }) {
   } = useRants();
   
   const navigate = useNavigate();
-
   const rant_id = rant?.rant_id;
 
 
+  const [localFormData, setLocalFormData] = useState({
+    header: '',
+    content: '',
+    youtube_url: ''
+  });
+
+
+
   useEffect(() => {
-    if (rant) {
-      setFormData({
+    if (rant && rant.rant_id) {
+ 
+      setLocalFormData({
         header: rant.header || '',
         content: rant.content || '',
         youtube_url: rant.youtube_url || ''
       });
     }
-  }, [rant, setFormData]);
+  }, [rant]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (rant_id && localFormData.header && localFormData.content && localFormData.youtube_url) {
+      try {
+        // Temporarily set the global formData for the editRant function
+        const { setFormData } = useRants.getState();
+        setFormData(localFormData);
+        await editRant(rant_id);
+        // Close the modal after successful edit
+        document.getElementById(`UpdateRant-${rant_id}`).close();
+      } catch (error) {
+        // Error is already handled by the editRant function with toast
+        console.error('Edit failed:', error);
+      }
+    }
+  };
 
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this Rant?")) {
       await deleteRant(rant_id);
-      navigate('/');
+
+      document.getElementById(`UpdateRant-${rant_id}`).close();
     }
   };
 
@@ -51,109 +75,108 @@ function UpdateRant({ rant }) {
     );
   }
 
-  // Don't render modal if no rant is provided
+  
   if (!rant || !rant.rant_id) {
     return null;
   }
 
   return (
-    <dialog id={`UpdateRant-${rant?.rant_id}`} className="modal border border-white/10 rounded-2xl bg-primary w-150 left-164 top-57">
-    <div className="modal-box border border-white/10 rounded-2xl bg-primary ">
+    <dialog id={`UpdateRant-${rant?.rant_id}`} className="modal-box border border-white/10 rounded-2xl bg-primary w-130 left-175 top-57">
+      <div className="modal-box flex flex-col items-center justify-center max-w-md p-5 mx-auto  rounded-2xl bg-primary">
         {/* CLOSE BUTTON */}
-        <button className="label-text text-base font-medium text-neutral-400 absolute right-2 top-2" onClick={() => document.getElementById(`UpdateRant-${rant?.rant_id}`).close()}>X</button>
+        <button 
+          className="label-text text-base font-medium text-neutral-400 absolute right-2 top-2" 
+          onClick={() => document.getElementById(`UpdateRant-${rant?.rant_id}`).close()}
+        >
+          ✕
+        </button>
 
-    
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <button onClick={() => navigate("/")} className="btn btn-ghost mb-8">
-        <ArrowLeftIcon className="size-4 mr-2" />
-        Back to Rant List
-      </button>
+        {/* MODAL HEADER */}
+        <h3 className="label-text text-base font-medium text-neutral-400 mb-4">Edit Rant</h3>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        
-        {/* Rant FORM */}
-        <div className="space-y-6 w-120">
-          <div className="card-body">
-            <h2 className="label-text text-base font-medium text-neutral-400">Edit Rant</h2>
-
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                editRant(rant_id);
-              }}
-              className="space-y-6"
-            >
-              {/* Rant header */}
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text text-base font-medium text-neutral-400">Rant Header</span>
-                </label>
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6 w-full"
+        >
+          <div className="grid gap-6">
+            {/* Rant header */}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text text-base font-medium text-neutral-400">Rant Header</span>
+              </label>
+              <div className="relative">
                 <input
                   type="text"
                   placeholder="Enter Rant Title"
+                  maxLength="100"
                   className="field-input field-input-focus text-base font-medium text-neutral-400"
-                  value={formData?.header || ""}
-                  onChange={(e) => setFormData({ ...formData, header: e.target.value })}
+                  value={localFormData.header}
+                  onChange={(e) => setLocalFormData({ ...localFormData, header: e.target.value })}
                 />
               </div>
+            </div>
 
-              {/* Rant content */}
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text text-base font-medium text-neutral-400">Rant Content</span>
-                </label>
+            {/* Rant content */}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text text-base font-medium text-neutral-400">Rant Content</span>
+              </label>
+              <div className="relative">
                 <input
                   type="text"
                   placeholder="Enter Rant content"
                   className="field-input field-input-focus text-base font-medium text-neutral-400"
-                  value={formData?.content || ""}
-                  onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+                  value={localFormData.content}
+                  onChange={(e) => setLocalFormData({ ...localFormData, content: e.target.value })}
                 />
               </div>
+            </div>
 
-              {/* Rant youtube_url */}
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text text-base font-medium text-neutral-400">Rant Email</span>
-                </label>
+            {/* Rant youtube_url */}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text text-base font-medium text-neutral-400">Rant Video</span>
+              </label>
+              <div className="relative">
                 <input
                   type="text"
-                  placeholder="Enter Rant email"
-                 className="field-input field-input-focus text-base font-medium text-neutral-400"   
-                  value={formData?.youtube_url || ""}
-                  onChange={(e) => setFormData({ ...formData, youtube_url: e.target.value })}
+                  placeholder="Enter rant video URL"
+                  className="field-input field-input-focus text-base font-medium text-neutral-400"   
+                  value={localFormData.youtube_url}
+                  onChange={(e) => setLocalFormData({ ...localFormData, youtube_url: e.target.value })}
                 />
               </div>
-
-
-              {/* FORM ACTIONS */}
-              <div className="flex justify-between mt-8">
-                <button type="button" onClick={handleDelete} className="label-text text-base font-medium  text-neutral-400 flex justify-center items-center">
-                  <Trash2Icon className="size-4 mr-2" />
-                  Delete Rant
-                </button>
-
-                <button
-                  type="submit"
-                  className="label-text text-base font-medium  text-neutral-400 flex justify-center items-center"
-                  disabled={loading || !formData?.header || !formData?.content || !formData?.youtube_url }
-                >
-                  {loading ? (
-                    <span className="loading loading-spinner loading-sm" />
-                  ) : (
-                    <>
-                      <SaveIcon className="size-4 mr-2" />
-                      Save Changes
-                    </>
-                  )}
-                </button>
-              </div>
-            </form>
+            </div>
           </div>
-        </div>
+
+          {/* MODAL ACTIONS */}
+          <div className="flex justify-between items-center mb-12">
+            <button 
+              type="button"
+              className="flex items-center bg-red-500/20 hover:bg-red-500/30 border border-red-500/20 rounded-full p-3 transition-colors duration-200 text-red-400"
+              onClick={handleDelete}
+            >
+              <Trash2Icon className="size-5 mr-2" />
+              Delete Rant
+            </button>
+            
+            <button
+              type="submit"
+              className="flex items-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-full p-3 transition-colors duration-200"
+              disabled={!localFormData.header || !localFormData.content || !localFormData.youtube_url || loading}
+            >
+              {loading ? (
+                <span className="loading loading-spinner loading-sm" />
+              ) : (
+                <span className="label-text text-base font-medium text-neutral-400 flex justify-center items-center">
+                  <SaveIcon className="size-5 mr-2" />
+                  Save Changes
+                </span>
+              )}  
+            </button>
+          </div>
+        </form>
       </div>
-    </div>
-    </div>
     </dialog>
   );
 }

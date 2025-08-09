@@ -45,9 +45,11 @@ export const useRants = create((set,get) => ({
             await get().fetchRants();
             get().resetFormData();
             toast.success("Rant added successfully");
-            document.getElementById('add_rant_form').close();
+            document.getElementById('add_rant_modal').close();
         } catch (error) {
-            toast.error('Failed to add rant')
+           
+            toast.error('Failed to add rant');
+            throw error;
         } finally {
             set({loading:false})
         }
@@ -87,9 +89,10 @@ export const useRants = create((set,get) => ({
             await get().fetchRants();
             get().resetFormData();
             toast.success("Rant updated successfully");
-            document.getElementById('edit_rant_form').close();
+            
         } catch (error) {
             toast.error("Failed to update rant");
+            throw error; 
         } finally {
             set({loading: false})
         }
