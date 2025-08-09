@@ -5,30 +5,31 @@ function AddRantForm() {
 const {loading, addRant, formData, setFormData} = useRants();
 
   return (
-    <dialog id="add_rant_modal" className="modal">
-      <div className="modal-box">
+
+    <dialog id="add_rant_modal" className="modal-box border border-white/10 rounded-2xl bg-primary w-150 left-164 top-57">
+        
+      <div className="modal-box flex flex-col items-center justify-center max-w-md p-5 mx-auto  
+        border  rounded-2xl bg-primary">
         {/* CLOSE BUTTON */}
-        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => document.getElementById('add_rant_modal').close()}>X</button>
+        <button className="label-text text-base font-medium text-neutral-400 absolute right-2 top-2" onClick={() => document.getElementById('add_rant_modal').close()}>X</button>
 
         {/* MODAL HEADER */}
-        <h3 className="font-bold text-xl mb-8">Add New Rant</h3>
+        <h3 className="label-text text-base font-medium text-neutral-400">Add New Rant</h3>
 
-        <form onSubmit={(e) => { e.preventDefault(); addRant(e); }} className="space-y-6">
+        <form onSubmit={(e) => { e.preventDefault(); addRant(e); }} className="space-y-6 w-120">
           <div className="grid gap-6">
             {/* rant name */}
-            <div className="form-control">
+            <div className="form-control ">
               <label className="label">
-                <span className="label-text text-base font-medium">Rant header</span>
+                <span className="label-text text-base font-medium text-neutral-400">Rant header</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-base-content/50">
-                  <Package2Icon className="size-5" />
-                </div>
+                
                 <input
                   type="text"
                   placeholder="Enter rant header"
                   maxLength="100"
-                  className="input input-bordered w-full pl-10 py-3 focus:input-primary transition-colors duration-200"
+                  className="field-input field-input-focus text-base font-medium text-neutral-400 "
                   value={formData?.header || ''}
                   onChange={(e) => setFormData({ ...formData, header: e.target.value })}
                 />
@@ -38,16 +39,14 @@ const {loading, addRant, formData, setFormData} = useRants();
             {/* rant content */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text text-base font-medium">Rant context</span>
+                <span className="label-text text-base font-medium  text-neutral-400">Rant context</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-base-content/50">
-                  <Package2Icon className="size-5" />
-                </div>
+                
                 <input
                   type="text"
                   placeholder="Enter Portfolio Bio"
-                  className="input input-bordered w-full pl-10 py-3 focus:input-primary transition-colors duration-200"
+                  className="field-input field-input-focus text-base font-medium text-neutral-400"
                   value={formData?.content || ''}
                   onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                 />
@@ -57,16 +56,14 @@ const {loading, addRant, formData, setFormData} = useRants();
             {/* rant youtube_url */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text text-base font-medium">Rant video</span>
+                <span className="label-text text-base font-medium  text-neutral-400">Rant video</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-base-content/50">
-                  <Package2Icon className="size-5" />
-                </div>
+                
                 <input
                   type="text"
                   placeholder="Enter rant video"
-                  className="input input-bordered w-full pl-10 py-3 focus:input-primary transition-colors duration-200"
+                  className="field-input field-input-focus text-base font-medium text-neutral-400"
                   value={formData?.youtube_url || ''}
                   onChange={(e) => setFormData({ ...formData, youtube_url: e.target.value })}
                 />
@@ -78,36 +75,35 @@ const {loading, addRant, formData, setFormData} = useRants();
           </div>
 
           {/* MODAL ACTIONS */}
-          <div className="modal-action">
+          <div className="flex justify-between items-center mb-12">
             <button 
               type="button"
-              className="btn btn-ghost"
+              className="flex items-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-full p-3 transition-colors duration-200 text-neutral-400"
               onClick={() => document.getElementById('add_rant_modal').close()}
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="btn btn-primary min-w-[120px]"
+              className="flex items-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-full p-3 transition-colors duration-200"
               disabled={!formData?.header || !formData?.content || !formData?.youtube_url || loading}
             >
               {loading ? (
                 <span className="loading loading-spinner loading-sm" />
               ) : (
                 <>
+                  <button className='label-text text-base font-medium  text-neutral-400 flex justify-center items-center'>
                   <PlusCircleIcon className="size-5 mr-2" />
-                  Add Rant
+                   Add Rant
+                </button>
                 </>
-              )}
+              )}  
             </button>
           </div>
         </form>
       </div>
 
-      {/* BACKDROP */}
-      <div className="modal-backdrop" onClick={() => document.getElementById('add_rant_modal').close()}>
-        <button>close</button>
-      </div>
+
     </dialog>
   );
 }

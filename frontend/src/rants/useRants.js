@@ -2,7 +2,7 @@ const BASE_URL = "http://localhost:3000";
 
 import {create} from 'zustand';
 import axios from 'axios';
-import { toast } from 'react-toastify'; // Add this import
+import { toast } from 'react-toastify'; 
 
 export const useRants = create((set,get) => ({
     rants:[],

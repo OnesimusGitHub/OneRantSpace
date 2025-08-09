@@ -6,7 +6,7 @@ import ReactPlayer from 'react-player';
 import AddRantForm from '../components/AddRantForm';
 import { PlusCircleIcon } from 'lucide-react';
 function AdminRantSection() {
-    const {rants, loading, error, fetchRants} = useRants();
+    const {rants, loading, error, fetchRants, resetFormData} = useRants();
     const [hoveredVideo, setHoveredVideo] = useState(null);
     const [playerInstance, setPlayerInstance] = useState(null);
     const [isVideoMuted, setIsVideoMuted] = useState(true);
@@ -170,7 +170,13 @@ function AdminRantSection() {
             <div className='max-w-7xl mx-auto relative z-10'>
               
                 <div className='flex justify-between items-center mb-12'>
-                    <button className=' flex items-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-full p-3 transition-colors duration-200' onClick={() => document.getElementById('add_rant_modal').showModal()}>
+                    <button 
+                        className=' flex items-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-full p-3 transition-colors duration-200' 
+                        onClick={() => {
+                            resetFormData(); // Clear any existing form data
+                            document.getElementById('add_rant_modal').showModal();
+                        }}
+                    >
                         <PlusCircleIcon className='size-5 mr-2' />
                         Add Rant
                     </button>
