@@ -21,7 +21,7 @@ function Pagination({rants, onHoverVideo}) {
 
     const slideVariants = {
         enter: (direction) => ({
-            x: direction > 0 ? 1000 : -1000,
+            x: direction > 0 ? 300 : -300,
             opacity: 0
         }),
         center: {
@@ -31,15 +31,15 @@ function Pagination({rants, onHoverVideo}) {
         },
         exit: (direction) => ({
             zIndex: 0,
-            x: direction < 0 ? 1000 : -1000,
+            x: direction < 0 ? 300 : -300,
             opacity: 0
         })
     };
 
     return (
-        <div className='relative w-full max-w-4xl mx-auto h-[450px] flex items-center justify-center overflow-hidden'>
+        <div className='relative w-full max-w-4xl mx-auto h-[450px] sm:h-[400px] xs:h-[350px] flex items-center justify-center overflow-hidden px-2 sm:px-4'>
 
-            <div className='relative w-[400px] h-full flex items-center justify-center'>
+            <div className='relative w-full max-w-[400px] sm:w-[350px] xs:w-[300px] h-full flex items-center justify-center'>
                 <AnimatePresence initial={false} custom={direction} mode="wait">
                     <motion.div
                         key={currentPage}
@@ -63,22 +63,22 @@ function Pagination({rants, onHoverVideo}) {
        
             <button
                 onClick={handlePrev}
-                className='absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-full p-3 transition-all duration-200 hover:scale-110'
+                className='absolute left-1 sm:left-4 top-1/2 -translate-y-1/2 z-20 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-full p-2 sm:p-3 transition-all duration-200 hover:scale-110'
                 disabled={rants.length <= 1}
             >
-                <ChevronLeft className='w-6 h-6 text-white' />
+                <ChevronLeft className='w-4 h-4 sm:w-6 sm:h-6 text-white' />
             </button>
 
             <button
                 onClick={handleNext}
-                className='absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-full p-3 transition-all duration-200 hover:scale-110'
+                className='absolute right-1 sm:right-4 top-1/2 -translate-y-1/2 z-20 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-full p-2 sm:p-3 transition-all duration-200 hover:scale-110'
                 disabled={rants.length <= 1}
             >
-                <ChevronRight className='w-6 h-6 text-white' />
+                <ChevronRight className='w-4 h-4 sm:w-6 sm:h-6 text-white' />
             </button>
 
             
-            <div className='absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2'>
+            <div className='absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 flex gap-1 sm:gap-2'>
                 {rants.map((_, index) => (
                     <button
                         key={index}
@@ -88,7 +88,7 @@ function Pagination({rants, onHoverVideo}) {
                         }}
                         className={`w-2 h-2 rounded-full transition-all duration-200 ${
                             index === currentPage 
-                                ? 'bg-white w-6' 
+                                ? 'bg-white w-4 sm:w-6' 
                                 : 'bg-white/50 hover:bg-white/70'
                         }`}
                     />

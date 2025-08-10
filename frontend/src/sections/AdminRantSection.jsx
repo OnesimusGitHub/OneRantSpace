@@ -48,7 +48,7 @@ function AdminRantSection() {
     };
 
     return (
-        <section className="min-h-screen py-20 px-5 sm:px-10 relative">
+        <section className="min-h-screen py-10 sm:py-20 px-3 sm:px-5 lg:px-10 relative">
             
             {hoveredVideo && videoId && (
                 <div className='fixed inset-0 z-0'>
@@ -78,20 +78,20 @@ function AdminRantSection() {
                     <div className='absolute inset-0 bg-black/70 z-10'/>
                     
                    
-                    <div className='absolute top-5 right-5 z-20'>
+                    <div className='absolute top-3 sm:top-5 right-3 sm:right-5 z-20'>
                         <button
                             onClick={toggleVideoAudio}
-                            className='bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200'
+                            className='bg-black/50 hover:bg-black/70 text-white p-2 sm:p-3 rounded-full transition-all duration-200'
                             title={isVideoMuted ? 'Unmute Video' : 'Mute Video'}
                         >
                             {isVideoMuted ? (
                               
-                                <svg className='w-6 h-6' fill="currentColor" viewBox="0 0 24 24">
+                                <svg className='w-4 h-4 sm:w-6 sm:h-6' fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
                                 </svg>
                             ) : (
                               
-                                <svg className='w-6 h-6' fill="currentColor" viewBox="0 0 24 24">
+                                <svg className='w-4 h-4 sm:w-6 sm:h-6' fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
                                 </svg>
                             )}
@@ -169,37 +169,39 @@ function AdminRantSection() {
 
             <div className='max-w-7xl mx-auto relative z-10'>
               
-                <div className='flex justify-between items-center mb-12'>
+                <div className='flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 mb-8 sm:mb-12'>
                     <button 
-                        className=' flex items-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-full p-3 transition-colors duration-200' 
+                        className='flex items-center bg-white/10 hover:bg-white/20 border border-white/20 rounded-full p-2 sm:p-3 transition-colors duration-200 text-sm sm:text-base' 
                         onClick={() => {
                             resetFormData(); 
                             document.getElementById('add_rant_modal').showModal();
                         }}
                     >
-                        <PlusCircleIcon className='size-5 mr-2' />
-                        Add Rant
+                        <PlusCircleIcon className='w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2' />
+                        <span className='hidden xs:inline'>Add Rant</span>
+                        <span className='xs:hidden'>Add</span>
                     </button>
                     <button 
-                        className='bg-white/10 hover:bg-white/20 border border-white/20 rounded-full p-3 transition-colors duration-200' 
+                        className='bg-white/10 hover:bg-white/20 border border-white/20 rounded-full p-2 sm:p-3 transition-colors duration-200' 
                         onClick={fetchRants}
+                        title="Refresh Rants"
                     >
-                        <RefreshCwIcon className='w-5 h-5 text-white' />
+                        <RefreshCwIcon className='w-4 h-4 sm:w-5 sm:h-5 text-white' />
                     </button>
                 </div>
 
                 <AddRantForm />
    
                 {error && (
-                    <div className='bg-red-500/20 border border-red-500/50 text-red-200 p-4 rounded-lg mb-8'>
+                    <div className='bg-red-500/20 border border-red-500/50 text-red-200 p-3 sm:p-4 rounded-lg mb-6 sm:mb-8 text-sm sm:text-base'>
                         {error}
                     </div>
                 )}
 
               
                 {loading ? (
-                    <div className='flex justify-center items-center h-64'>
-                        <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-white'></div>
+                    <div className='flex justify-center items-center h-48 sm:h-64'>
+                        <div className='animate-spin rounded-full h-8 w-8 sm:h-12 sm:w-12 border-b-2 border-white'></div>
                     </div>
                 ) : (
                     

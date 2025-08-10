@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Link, Navigate } from "react-router-dom"; 
+import { Navigate } from "react-router-dom"; 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -85,9 +85,6 @@ const Login = ({ setAuth }) => {
             Login
           </button>
         </form>
-        <p className="text-center mt-4">
-          Don't have an account? <Link to="/register" className="text-blue-500 hover:underline">Register</Link>
-        </p>
       </div>
       </section>
       <ToastContainer />

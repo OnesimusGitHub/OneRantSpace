@@ -35,40 +35,6 @@ export const login = async (req, res) => {
     }
 }
 
-export const register = async (req, res) => {
-    console.log("Register route hit with body:", req.body); 
-    
-    const {username, password, email} = req.body;
-
-    try {
-        const user = await sql`SELECT * FROM users WHERE username = ${username}`;
-
-        if (user.length !== 0) {
-            return res.status(401).json({message: "User already exists"});
-        }
-
-        const saltRound = 10;
-        const salt = bcrypt.genSaltSync(saltRound);
-        const bcryptPassword = await bcrypt.hash(password, salt);
-
-        const newUser = await sql`
-            INSERT INTO users (username, password_hash, email) 
-            VALUES (${username}, ${bcryptPassword}, ${email}) 
-            RETURNING *`;
-
-        const token = jwt.sign(
-            { user: { id: newUser[0].user_id } }, 
-            process.env.JWT_SECRET, 
-            { expiresIn: "1h" }
-        );
-
-        res.json({token});
-    } catch (error) {
-        console.error('Registration error:', error);
-        res.status(500).json({success: false, message: "Error creating user: " + error.message});
-    }
-}
-
 export const verify = async (req, res) => {
     try {
         res.json(true);

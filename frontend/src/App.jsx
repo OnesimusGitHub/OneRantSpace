@@ -4,7 +4,6 @@ import { Routes, Route} from 'react-router-dom'
 import RantSection from './sections/RantSection.jsx'
 import Dashboard from './components/Dashboard.jsx'
 import Login from "./components/Login.jsx"
-import Register from "./components/Register.jsx"
 
 const App = () => {
   
@@ -31,10 +30,6 @@ const App = () => {
           <Route 
             path="/login" 
             element={<Login setAuth={setIsAuthenticated} />} 
-          />
-          <Route 
-            path="/register" 
-            element={<Register setAuth={setIsAuthenticated} />} 
           />
         </Routes>
    
