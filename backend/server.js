@@ -1,24 +1,7 @@
 import express from 'express';
 import helmet from 'helmet';
-import morgan from 'morgan';            console.log("Database initialized successfully");
-    } catch (error) {
-        console.error("Database initialization error:", error);
-        // Don't exit the process, just log the error
-    }
-}
-
-initDB().then(()=> {
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-        console.log(`Environment: ${process.env.NODE_ENV}`);
-    });
-}).catch((error) => {
-    console.error("Failed to initialize database:", error);
-    // Still start the server even if DB init fails
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT} (DB connection failed)`);
-    });
-}); from 'cors';
+import morgan from 'morgan';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -104,19 +87,24 @@ async function initDB() {
             password_hash varchar(255) NOT NULL)
             `;
             
-    
-
             console.log("Database initialized successfully");
     } catch (error) {
-        console.log("error initdb", error);
-        
+        console.error("Database initialization error:", error);
+        // Don't exit the process, just log the error
     }
 }
 
 initDB().then(()=> {
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
+        console.log(`Environment: ${process.env.NODE_ENV}`);
     });
-})
+}).catch((error) => {
+    console.error("Failed to initialize database:", error);
+    // Still start the server even if DB init fails
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT} (DB connection failed)`);
+    });
+});
 
 
