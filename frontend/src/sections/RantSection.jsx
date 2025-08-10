@@ -170,7 +170,9 @@ function RantSection() {
             <div className='max-w-7xl mx-auto relative z-10'>
               
                 <div className='flex justify-between items-center mb-12'>
-                    <h1 className='text-3xl md:text-4xl font-bold text-white'>Latest Rants</h1>
+                    <h1 className={`text-3xl md:text-4xl font-bold text-white transition-opacity duration-300 ${hoveredVideo ? 'opacity-0' : 'opacity-100'}`}>
+                        Latest Rants. Click then hover
+                    </h1>
                     
                     
                     <button 
