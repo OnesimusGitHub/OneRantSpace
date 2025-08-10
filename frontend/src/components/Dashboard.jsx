@@ -15,7 +15,8 @@ const Dashboard = ({ setAuth }) => {
 
   const getProfile = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/auth/dashboard", { 
+      const baseURL = import.meta.env.PROD ? "" : "http://localhost:3000";
+      const res = await fetch(`${baseURL}/api/auth/dashboard`, { 
         method: "GET", 
         headers: { 
           jwt_token: localStorage.getItem("jwt_token") 
