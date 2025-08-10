@@ -1,7 +1,24 @@
 import express from 'express';
 import helmet from 'helmet';
-import morgan from 'morgan';
-import cors from 'cors';
+import morgan from 'morgan';            console.log("Database initialized successfully");
+    } catch (error) {
+        console.error("Database initialization error:", error);
+        // Don't exit the process, just log the error
+    }
+}
+
+initDB().then(()=> {
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+        console.log(`Environment: ${process.env.NODE_ENV}`);
+    });
+}).catch((error) => {
+    console.error("Failed to initialize database:", error);
+    // Still start the server even if DB init fails
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT} (DB connection failed)`);
+    });
+}); from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -15,7 +32,11 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 10000;
+
+console.log('Starting server with PORT:', PORT);
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('Database host:', process.env.PGHOST ? 'configured' : 'missing');
 
 app.use(express.json());
 app.use(helmet());
