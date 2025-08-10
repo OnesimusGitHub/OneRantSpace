@@ -22,7 +22,14 @@ console.log('NODE_ENV:', process.env.NODE_ENV);
 console.log('Database host:', process.env.PGHOST ? 'configured' : 'missing');
 
 app.use(express.json());
-app.use(helmet());
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            frameAncestors: ["'self'"],
+            frameSrc: ["'self'", "https://www.youtube.com", "https://youtube.com"]
+        }
+    }
+}));
 app.use(cors())
 app.use(morgan("dev"));
 
