@@ -81,22 +81,22 @@ function UpdateRant({ rant }) {
   }
 
   return (
-    <dialog id={`UpdateRant-${rant?.rant_id}`} className="modal">
-      <div className="modal-box w-11/12 max-w-lg mx-auto bg-primary border border-white/10 rounded-2xl p-4 sm:p-6">
+    <dialog id={`UpdateRant-${rant?.rant_id}`} className="modal-box border border-white/10 rounded-2xl bg-primary w-130 left-175 top-57">
+      <div className="modal-box flex flex-col items-center justify-center max-w-md p-5 mx-auto  rounded-2xl bg-primary">
         {/* CLOSE BUTTON */}
         <button 
-          className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-neutral-400" 
+          className="label-text text-base font-medium text-neutral-400 absolute right-2 top-2" 
           onClick={() => document.getElementById(`UpdateRant-${rant?.rant_id}`).close()}
         >
           ✕
         </button>
 
         {/* MODAL HEADER */}
-        <h3 className="text-lg font-bold text-neutral-400 mb-4 text-center">Edit Rant</h3>
+        <h3 className="label-text text-base font-medium text-neutral-400 mb-4">Edit Rant</h3>
 
         <form
           onSubmit={handleSubmit}
-          className="space-y-4"
+          className="space-y-6 w-full"
         >
           <div className="grid gap-6">
             {/* Rant header */}

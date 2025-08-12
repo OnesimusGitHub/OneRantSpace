@@ -2,30 +2,44 @@ import { useRants } from '../rants/useRants';
 import { Package2Icon, PlusCircleIcon } from 'lucide-react';
 
 function AddRantForm() {
-const {loading, addRant, formData, setFormData} = useRants();
+  const { loading, addRant, formData, setFormData } = useRants();
 
   return (
-
-    <dialog id="add_rant_modal" className="modal">
-      <div className="modal-box w-11/12 max-w-lg mx-auto bg-primary border border-white/10 rounded-2xl p-4 sm:p-6">
+    <dialog
+      id="add_rant_modal"
+      className="modal-box border border-white/10 rounded-2xl bg-primary max-w-xs w-full sm:max-w-md p-0 m-0"
+      style={{ padding: 0 }}
+    >
+      <div className="flex flex-col items-center justify-center w-full p-4 sm:p-6 mx-auto border rounded-2xl bg-primary relative">
         {/* CLOSE BUTTON */}
-        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-neutral-400" onClick={() => document.getElementById('add_rant_modal').close()}>✕</button>
+        <button
+          className="label-text text-base font-medium text-neutral-400 absolute right-3 top-3 z-10"
+          onClick={() => document.getElementById('add_rant_modal').close()}
+        >
+          ✕
+        </button>
 
         {/* MODAL HEADER */}
-        <h3 className="text-lg font-bold text-neutral-400 mb-4 text-center">Add New Rant</h3>
+        <h3 className="label-text text-lg font-semibold text-neutral-200 mb-4 mt-2 text-center">Add New Rant</h3>
 
-        <form onSubmit={(e) => { e.preventDefault(); addRant(e); }} className="space-y-4">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            addRant(e);
+          }}
+          className="space-y-5 w-full"
+        >
           <div className="grid gap-4">
             {/* rant name */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text text-sm sm:text-base font-medium text-neutral-400">Rant header</span>
+                <span className="label-text text-base font-medium text-neutral-400">Rant header</span>
               </label>
               <input
                 type="text"
                 placeholder="Enter rant header"
                 maxLength="100"
-                className="input input-bordered w-full bg-white/5 border-white/20 text-neutral-400 placeholder-neutral-500 text-sm sm:text-base"
+                className="field-input field-input-focus text-base font-medium text-neutral-400"
                 value={formData?.header || ''}
                 onChange={(e) => setFormData({ ...formData, header: e.target.value })}
               />
@@ -34,11 +48,11 @@ const {loading, addRant, formData, setFormData} = useRants();
             {/* rant content */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text text-sm sm:text-base font-medium text-neutral-400">Rant content</span>
+                <span className="label-text text-base font-medium text-neutral-400">Rant content</span>
               </label>
               <textarea
                 placeholder="Enter rant content"
-                className="textarea textarea-bordered w-full bg-white/5 border-white/20 text-neutral-400 placeholder-neutral-500 text-sm sm:text-base h-20 sm:h-24"
+                className="field-input field-input-focus text-base font-medium text-neutral-400 min-h-[80px] resize-none"
                 value={formData?.content || ''}
                 onChange={(e) => setFormData({ ...formData, content: e.target.value })}
               />
@@ -47,47 +61,47 @@ const {loading, addRant, formData, setFormData} = useRants();
             {/* rant youtube_url */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text text-sm sm:text-base font-medium text-neutral-400">YouTube URL</span>
+                <span className="label-text text-base font-medium text-neutral-400">YouTube URL</span>
               </label>
               <input
-                type="url"
+                type="text"
                 placeholder="Enter YouTube URL"
-                className="input input-bordered w-full bg-white/5 border-white/20 text-neutral-400 placeholder-neutral-500 text-sm sm:text-base"
+                className="field-input field-input-focus text-base font-medium text-neutral-400"
                 value={formData?.youtube_url || ''}
                 onChange={(e) => setFormData({ ...formData, youtube_url: e.target.value })}
               />
             </div>
+
+           
+
           </div>
 
           {/* MODAL ACTIONS */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:justify-between items-center pt-4">
-            <button 
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mt-4 mb-2 w-full">
+            <button
               type="button"
-              className="btn btn-outline btn-sm sm:btn-md w-full sm:w-auto text-neutral-400 border-neutral-600 hover:bg-neutral-700"
+              className="label-text text-base font-medium text-neutral-400 flex justify-center items-center cursor-pointer w-full sm:w-auto py-2"
               onClick={() => document.getElementById('add_rant_modal').close()}
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="btn btn-primary btn-sm sm:btn-md w-full sm:w-auto"
+              className="label-text text-base font-medium text-neutral-400 flex justify-center items-center cursor-pointer w-full sm:w-auto py-2"
               disabled={!formData?.header || !formData?.content || !formData?.youtube_url || loading}
             >
               {loading ? (
                 <span className="loading loading-spinner loading-sm" />
               ) : (
                 <>
-                  <PlusCircleIcon className="w-4 h-4 mr-2" />
-                  <span className="text-sm sm:text-base">Add Rant</span>
+                  <PlusCircleIcon className="size-5 mr-2" />
+                  Add Rant
                 </>
-              )}  
+              )}
             </button>
           </div>
         </form>
       </div>
-      <form method="dialog" className="modal-backdrop">
-        <button>close</button>
-      </form>
     </dialog>
   );
 }
